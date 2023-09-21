@@ -24,8 +24,13 @@ public class Menu extends javax.swing.JFrame {
 
         welcome_lbl = new javax.swing.JLabel();
         clients_menubtn = new javax.swing.JButton();
+        transactions_menubtn = new javax.swing.JButton();
         lastsession_lbl = new javax.swing.JLabel();
         mainmenubackground = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
+        jMenu3 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -46,7 +51,15 @@ public class Menu extends javax.swing.JFrame {
                 clients_menubtnActionPerformed(evt);
             }
         });
-        getContentPane().add(clients_menubtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 300, 230, 60));
+        getContentPane().add(clients_menubtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, 230, 60));
+
+        transactions_menubtn.setText("Realizar Transacciones");
+        transactions_menubtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                transactions_menubtnActionPerformed(evt);
+            }
+        });
+        getContentPane().add(transactions_menubtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 290, 230, 60));
 
         lastsession_lbl.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lastsession_lbl.setForeground(new java.awt.Color(255, 51, 0));
@@ -58,6 +71,17 @@ public class Menu extends javax.swing.JFrame {
         mainmenubackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/trabajo/casino/CasinoBackgroundjpg.jpg"))); // NOI18N
         getContentPane().add(mainmenubackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -50, 760, 500));
 
+        jMenu1.setText("Ver");
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Herramientas");
+        jMenuBar1.add(jMenu2);
+
+        jMenu3.setText("Ayuda");
+        jMenuBar1.add(jMenu3);
+
+        setJMenuBar(jMenuBar1);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -66,6 +90,13 @@ public class Menu extends javax.swing.JFrame {
         client.setVisible(true);
         
     }//GEN-LAST:event_clients_menubtnActionPerformed
+
+    private void transactions_menubtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transactions_menubtnActionPerformed
+        // TODO add your handling code here:
+        Transacciones t = new Transacciones();
+        t.setVisible(true);
+        
+    }//GEN-LAST:event_transactions_menubtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -104,8 +135,13 @@ public class Menu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton clients_menubtn;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JLabel lastsession_lbl;
     private javax.swing.JLabel mainmenubackground;
+    private javax.swing.JButton transactions_menubtn;
     private javax.swing.JLabel welcome_lbl;
     // End of variables declaration//GEN-END:variables
 }
