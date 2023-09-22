@@ -36,6 +36,7 @@ public class Clientes extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu2 = new javax.swing.JPopupMenu();
         txtApellido = new javax.swing.JTextField();
         txtSaldo = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
@@ -64,6 +65,16 @@ public class Clientes extends javax.swing.JFrame {
         getContentPane().add(txtSaldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 190, 140, 30));
 
         txtNombre.setBackground(new java.awt.Color(255, 255, 255));
+        txtNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombreActionPerformed(evt);
+            }
+        });
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
         getContentPane().add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 70, 140, 30));
 
         jLabel4.setForeground(new java.awt.Color(255, 51, 0));
@@ -73,7 +84,7 @@ public class Clientes extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(51, 255, 51));
         jLabel2.setText("CLIENTES");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 0, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 0));
         jLabel1.setForeground(new java.awt.Color(255, 0, 51));
@@ -104,12 +115,19 @@ public class Clientes extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        personas_table.setColumnSelectionAllowed(true);
         personas_table.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(personas_table);
+        personas_table.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 520, 400));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 520, 400));
 
         txtDni.setBackground(new java.awt.Color(255, 255, 255));
+        txtDni.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDniKeyTyped(evt);
+            }
+        });
         getContentPane().add(txtDni, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 150, 140, 30));
 
         btnAgregar.setText("Agregar");
@@ -149,8 +167,10 @@ public class Clientes extends javax.swing.JFrame {
            txtSaldo.setText("");
     }
     
-    private void AgregarUsuario() //LO HACEMOS PARA VER LOS DATOS Y CREAMOS DOS MATRICES 
+    private void AgregarUsuario() 
     {
+        //Para agregar un nuevo usuario, creamos dos matrices con los tipos de dato String, mas abajo.
+        
         String Mat [] [] = new String [peopleList.size()] [4];
         Persona aux;
         
@@ -167,6 +187,8 @@ public class Clientes extends javax.swing.JFrame {
             new String [] {
                 "Nombre", "Apellido", "Dni", "Saldo"
             }
+                
+          
         ));
             
             
@@ -182,21 +204,29 @@ public class Clientes extends javax.swing.JFrame {
             saldo = txtSaldo.getText(); //PONEMOS EL SALDO COMO STRING NO LO PARSEAMOS (SE PUEDE PARSEAR) 
             dni = txtDni.getText(); //TAMBIEN EL DNI LO PONGO COMO STRING PARA Y NO COMO INT 
             
-            if (Nom.equals("") || ape.equals("")) {
+            if (this.txtNombre.getText().equals("") || this.txtApellido.getText().equals("")) {
                 throw new Exception("Datos necesarios"); 
+                
+            
+                
             } //Crear metodo externo que me valide cada campo, si esta vacio (puede usar try/catch para lanzar excepciones)
             
             peopleList.add(new Persona(Nom,ape,saldo,dni));
-        } catch (Exception e) 
-        {
-            JOptionPane.showMessageDialog(rootPane, "Por favor, ingrese los datos de la persona\n antes de agregar un nuevo usuario"); //Tira el error, pero este no es el mensaje que queremos mostrar :P
-            
         }
-     
+        
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Por favor, ingrese los datos de la persona\n antes de agregar un nuevo usuario"); //Tira el error, pero este no es el mensaje que queremos mostrar :P
+        }
+        
+        
+            
          AgregarUsuario();
-           limpiar();
+         
+         limpiar();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
+    
+    
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
         int c;
         try {
@@ -206,12 +236,49 @@ public class Clientes extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Porfavor seleccione la/s filas a eliminar");
         }
+        
         AgregarUsuario();
     }//GEN-LAST:event_btnBorrarActionPerformed
 
+    
+    
+    
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreActionPerformed
+
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+        int key = evt.getKeyChar();
+        boolean upper = key >= 65 && key <= 90;
+        boolean lower = key >= 97 && key <= 122;
+        boolean space = key == 32; 
+        
+        if (!(upper || lower || space)){
+            evt.consume();
+        }
+        
+        //Hacemos lo mismo que en el Método dniKeyTiped: 
+        //Consumimos el cáracter que pretendemos tipear si este no es una letra minuscula o mayuscula
+        
+        
+    }//GEN-LAST:event_txtNombreKeyTyped
+
+    
+    
+    private void txtDniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDniKeyTyped
+        //Solo permitimos numeros 
+        int key = evt.getKeyChar();
+        boolean numbers = key >= 48 && key <57;
+        
+        if (!numbers) { //Es importante el condicional !, para que evalue: "Si no es un numero, no dejo que sea escrito (evt.consume)"
+            evt.consume();
+        }
+        
+    }//GEN-LAST:event_txtDniKeyTyped
 
     /**
      * @param args the command line arguments
@@ -268,6 +335,9 @@ public class Clientes extends javax.swing.JFrame {
         
     }
     
+    private boolean FieldIsValid(){
+        return false;
+    } 
     
     
     
@@ -283,6 +353,7 @@ public class Clientes extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JPopupMenu jPopupMenu2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
