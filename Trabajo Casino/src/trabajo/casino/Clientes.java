@@ -59,9 +59,19 @@ public class Clientes extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtApellido.setBackground(new java.awt.Color(255, 255, 255));
+        txtApellido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtApellidoKeyTyped(evt);
+            }
+        });
         getContentPane().add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 110, 140, 30));
 
         txtSaldo.setBackground(new java.awt.Color(255, 255, 255));
+        txtSaldo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtSaldoKeyTyped(evt);
+            }
+        });
         getContentPane().add(txtSaldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 190, 140, 30));
 
         txtNombre.setBackground(new java.awt.Color(255, 255, 255));
@@ -120,7 +130,7 @@ public class Clientes extends javax.swing.JFrame {
         jScrollPane1.setViewportView(personas_table);
         personas_table.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 520, 400));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 530, 460));
 
         txtDni.setBackground(new java.awt.Color(255, 255, 255));
         txtDni.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -159,7 +169,7 @@ public class Clientes extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    private void limpiar() 
+    private void LimpiarCampos() 
     {
         txtDni.setText("");
          txtApellido.setText("");
@@ -204,25 +214,26 @@ public class Clientes extends javax.swing.JFrame {
             saldo = txtSaldo.getText(); //PONEMOS EL SALDO COMO STRING NO LO PARSEAMOS (SE PUEDE PARSEAR) 
             dni = txtDni.getText(); //TAMBIEN EL DNI LO PONGO COMO STRING PARA Y NO COMO INT 
             
-            if (this.txtNombre.getText().equals("") || this.txtApellido.getText().equals("")) {
-                throw new Exception("Datos necesarios"); 
+            if (this.txtNombre.getText().equals("") || this.txtApellido.getText().equals("")  || this.txtDni.getText().equals("") || this.txtSaldo.getText().equals("")) {
+                throw new Exception("Datos necesarios"); //La excepcion no se muestra, pero hace que funcione la de abajo :P
                 
             
                 
             } //Crear metodo externo que me valide cada campo, si esta vacio (puede usar try/catch para lanzar excepciones)
             
-            peopleList.add(new Persona(Nom,ape,saldo,dni));
+            
+            peopleList.add(new Persona(Nom,ape,dni,saldo));
         }
         
         catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, "Por favor, ingrese los datos de la persona\n antes de agregar un nuevo usuario"); //Tira el error, pero este no es el mensaje que queremos mostrar :P
+            JOptionPane.showMessageDialog(rootPane, "Por favor, ingrese todos los datos de la persona\n antes de agregar un nuevo usuario"); //Tira el error, pero este no es el mensaje que queremos mostrar :P
         }
         
         
             
          AgregarUsuario();
          
-         limpiar();
+       LimpiarCampos();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     
@@ -233,11 +244,15 @@ public class Clientes extends javax.swing.JFrame {
             c = personas_table.getSelectedRow();
             peopleList.remove(c);
             
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Porfavor seleccione la/s filas a eliminar");
         }
         
+        
+        
         AgregarUsuario();
+        //LimpiarCampos();//No funciona, por ahora: cuando se quiere eliminar la ultima fila, esta queda grabada hasta que se ingrese otra nueva
     }//GEN-LAST:event_btnBorrarActionPerformed
 
     
@@ -279,6 +294,28 @@ public class Clientes extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_txtDniKeyTyped
+
+    private void txtApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyTyped
+       
+            int key = evt.getKeyChar();
+        boolean upper = key >= 65 && key <= 90;
+        boolean lower = key >= 97 && key <= 122;
+        boolean space = key == 32; 
+        
+        if (!(upper || lower || space)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtApellidoKeyTyped
+
+    private void txtSaldoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSaldoKeyTyped
+        // TODO add your handling code here:
+         int key = evt.getKeyChar();
+        boolean numbers = key >= 48 && key <57;
+        
+        if (!numbers) { //Es importante el condicional !, para que evalue: "Si no es un numero, no dejo que sea escrito (evt.consume)"
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtSaldoKeyTyped
 
     /**
      * @param args the command line arguments
