@@ -86,8 +86,11 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void clients_menubtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clients_menubtnActionPerformed
-        Clientes client = new Clientes();
-        client.setVisible(true);
+        //ClientesTableWindow client = new ClientesTableWindow();
+        //client.setVisible(true);
+        
+        ClienteWindow2 c2 = new ClienteWindow2();
+        c2.setVisible(true);
         
     }//GEN-LAST:event_clients_menubtnActionPerformed
 
