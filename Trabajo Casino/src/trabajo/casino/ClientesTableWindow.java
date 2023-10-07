@@ -15,15 +15,15 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Facu
  */
-public class Clientes extends javax.swing.JFrame {
+public class ClientesTableWindow extends javax.swing.JFrame {
 
     /**
-     * Creates new form Clientes
+     * Creates new form ClientesTableWindow
      */
-    private ArrayList <Persona> peopleList; //Ver si es necesario cambiar el modificador de acceso private a otro
+    private ArrayList <Cliente> peopleList; //Ver si es necesario cambiar el modificador de acceso private a otro
     
-    public Clientes() {
-        peopleList = new ArrayList<Persona >();
+    public ClientesTableWindow() {
+        peopleList = new ArrayList<Cliente >();
         initComponents();
     }
 
@@ -169,20 +169,14 @@ public class Clientes extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    private void LimpiarCampos() 
-    {
-        txtDni.setText("");
-         txtApellido.setText("");
-          txtNombre.setText("");
-           txtSaldo.setText("");
-    }
+   
     
     private void AgregarUsuario() 
     {
         //Para agregar un nuevo usuario, creamos dos matrices con los tipos de dato String, mas abajo.
         
         String Mat [] [] = new String [peopleList.size()] [4];
-        Persona aux;
+        Cliente aux;
         
         for (int i = 0; i <peopleList.size(); i++) {
             aux= peopleList.get(i);
@@ -217,23 +211,21 @@ public class Clientes extends javax.swing.JFrame {
             if (this.txtNombre.getText().equals("") || this.txtApellido.getText().equals("")  || this.txtDni.getText().equals("") || this.txtSaldo.getText().equals("")) {
                 throw new Exception("Datos necesarios"); //La excepcion no se muestra, pero hace que funcione la de abajo :P
                 
-            
                 
             } //Crear metodo externo que me valide cada campo, si esta vacio (puede usar try/catch para lanzar excepciones)
             
             
-            peopleList.add(new Persona(Nom,ape,dni,saldo));
+            peopleList.add(new Cliente(Nom,ape,dni,saldo));
         }
         
         catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Por favor, ingrese todos los datos de la persona\n antes de agregar un nuevo usuario"); //Tira el error, pero este no es el mensaje que queremos mostrar :P
         }
         
-        
-            
+          
          AgregarUsuario();
          
-       LimpiarCampos();
+       
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     
@@ -249,10 +241,9 @@ public class Clientes extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Porfavor seleccione la/s filas a eliminar");
         }
         
-        
-        
+         
         AgregarUsuario();
-        //LimpiarCampos();//No funciona, por ahora: cuando se quiere eliminar la ultima fila, esta queda grabada hasta que se ingrese otra nueva
+       
     }//GEN-LAST:event_btnBorrarActionPerformed
 
     
@@ -334,20 +325,21 @@ public class Clientes extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Clientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClientesTableWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Clientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClientesTableWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Clientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClientesTableWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Clientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClientesTableWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Clientes().setVisible(true);
+                new ClientesTableWindow().setVisible(true);
             }
         });
     }
