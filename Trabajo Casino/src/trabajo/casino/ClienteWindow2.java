@@ -2,6 +2,9 @@ package trabajo.casino;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import java.sql.Connection;
+import java.sql.*;
+import java.sql.PreparedStatement;
 
 public class ClienteWindow2 extends javax.swing.JFrame {
 
@@ -39,6 +42,7 @@ public class ClienteWindow2 extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         cleanFieldsButton = new javax.swing.JButton();
+        buttonGuardar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(750, 500));
@@ -150,7 +154,7 @@ public class ClienteWindow2 extends javax.swing.JFrame {
             }
         });
         jPanel1.add(buttonEditar);
-        buttonEditar.setBounds(310, 140, 180, 40);
+        buttonEditar.setBounds(630, 60, 80, 40);
 
         buttonEliminar.setText("Eliminar");
         buttonEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -159,7 +163,7 @@ public class ClienteWindow2 extends javax.swing.JFrame {
             }
         });
         jPanel1.add(buttonEliminar);
-        buttonEliminar.setBounds(520, 140, 190, 40);
+        buttonEliminar.setBounds(300, 140, 190, 40);
 
         jLabel5.setFont(new java.awt.Font("Lucida Sans", 0, 14)); // NOI18N
         jLabel5.setText("Apellido");
@@ -184,7 +188,18 @@ public class ClienteWindow2 extends javax.swing.JFrame {
             }
         });
         jPanel1.add(cleanFieldsButton);
-        cleanFieldsButton.setBounds(630, 30, 50, 23);
+        cleanFieldsButton.setBounds(640, 20, 50, 23);
+
+        buttonGuardar.setBackground(new java.awt.Color(153, 255, 153));
+        buttonGuardar.setForeground(new java.awt.Color(153, 255, 153));
+        buttonGuardar.setText("Guardar ");
+        buttonGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonGuardarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(buttonGuardar);
+        buttonGuardar.setBounds(530, 140, 170, 40);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 750, 200);
@@ -197,7 +212,7 @@ public class ClienteWindow2 extends javax.swing.JFrame {
     
     
     
-    
+    //conexion y nombre de la db (temporalmente): jdbc:mysql://localhost:3306/test?zeroDateTimeBehavior=CONVERT_TO_NULL", "root","" / Casino_testdb
     
     private void saldoTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saldoTextFieldActionPerformed
         // TODO add your handling code here:
@@ -333,6 +348,51 @@ public class ClienteWindow2 extends javax.swing.JFrame {
        this.saldoTextField.setText("");
     }//GEN-LAST:event_cleanFieldsButtonActionPerformed
 
+    private void buttonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGuardarActionPerformed
+        // Seleccionamos todos los datos que tengamos actualmente en la tabla,
+        // y realizamos la query correspondiente!
+        
+        //DefaultTableModel tblModelDb = (DefaultTableModel) this.clientes_jtable.getModel();
+        
+        if (this.clientes_jtable.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(rootPane, "No hay informacion para guardar");
+            
+        }
+        else{
+            //Armamos las variables y realizamos el try/catch!
+            String nombre, apellido, dni, saldo;
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/casinodb?zeroDateTimeBehavior=CONVERT_TO_NULL","root","");
+                
+                for (int i = 0; i < this.clientes_jtable.getRowCount(); i++) {
+                    nombre = this.clientes_jtable.getValueAt(i,0).toString();
+                    apellido = this.clientes_jtable.getValueAt(i,1).toString();
+                    dni =  this.clientes_jtable.getValueAt(i,2).toString();
+                    saldo = this.clientes_jtable.getValueAt(i,3).toString(); //////
+                    
+                    //query
+                    String query = "insert into customers = (firstName, lastName, dni, balance) values (? ,? ,? ,? )";
+                    PreparedStatement prep = con.prepareStatement(query);
+                    
+                    prep.setString(1, nombre);
+                    prep.setString(2, apellido);
+                    prep.setString(3, dni);
+                    prep.setString(4, saldo);        
+                    
+                    prep.execute();
+                    
+                    
+                }
+                JOptionPane.showMessageDialog(rootPane, "Informacion Actualizada");
+            }
+            catch (Exception e){
+                JOptionPane.showMessageDialog(rootPane, "Error; no se han realizado cambios en la DB");
+            }
+                   
+        }
+    }//GEN-LAST:event_buttonGuardarActionPerformed
+
     
     
     
@@ -376,6 +436,7 @@ public class ClienteWindow2 extends javax.swing.JFrame {
     private javax.swing.JButton buttonAgregar;
     private javax.swing.JButton buttonEditar;
     private javax.swing.JButton buttonEliminar;
+    private javax.swing.JButton buttonGuardar;
     private javax.swing.JButton cleanFieldsButton;
     private javax.swing.JTable clientes_jtable;
     private javax.swing.JTextField dniTextField;
@@ -400,3 +461,4 @@ public class ClienteWindow2 extends javax.swing.JFrame {
        clientes_jtable.setModel(tblModel);
     }
 }
+
