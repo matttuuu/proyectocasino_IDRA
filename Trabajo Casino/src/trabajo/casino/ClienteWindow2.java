@@ -372,7 +372,8 @@ public class ClienteWindow2 extends javax.swing.JFrame {
                     saldo = this.clientes_jtable.getValueAt(i,3).toString(); //////
                     
                     //query
-                    String query = "insert into customers = (firstName, lastName, dni, balance) values (? ,? ,? ,? )";
+                    String query = "insert into customers (firstName, lastName, dni, balance) "
+                            + " values (?, ?, ? ,?);";
                     PreparedStatement prep = con.prepareStatement(query);
                     
                     prep.setString(1, nombre);
