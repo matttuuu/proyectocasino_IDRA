@@ -1,8 +1,8 @@
 package main.classes;
-import credits.Credito; //Hago este import para realizar pruebas de fichas en el cuarto panel temporal
-import credits.FichaAzul;
-import credits.FichaBlanca;
-import credits.FichaGris;
+import credits.Ficha; //Hago este import para realizar pruebas de fichas en el cuarto panel temporal
+import credits.Azul;
+import credits.Blanca;
+import credits.Gris;
 
 public class Transacciones extends javax.swing.JFrame {
 
@@ -317,9 +317,9 @@ public class Transacciones extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         //  Cuando presiono el boton, me deberian aparecer los valores de las fichas que tengo ya establecidas
-        FichaBlanca ficha1 = new FichaBlanca();
-        FichaAzul ficha2 = new FichaAzul();
-        FichaGris fichag= new FichaGris();
+        Blanca ficha1 = new Blanca();
+        Azul ficha2 = new Azul();
+        Gris fichag= new Gris();
         
         this.lblficha1.setText(ficha1.getColorDenomination()); //Me devuelve el color de la ficha, en string
         this.lblficha2.setText(fichag.getColorDenomination());
@@ -333,9 +333,9 @@ public class Transacciones extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // sumo los valores de la ficha blanca (2) y la ficha azul (5)
         
-        FichaBlanca ficha1 = new FichaBlanca();
-        FichaAzul ficha2 = new FichaAzul();
-        FichaGris fichag = new FichaGris();
+        Blanca ficha1 = new Blanca();
+        Azul ficha2 = new Azul();
+        Gris fichag = new Gris();
         double resultado =( ficha1.getValor() + fichag.getValor());
         
         this.fieldresultadoficha.setText(Double.toString(resultado));

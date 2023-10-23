@@ -1,14 +1,16 @@
+
+
 package credits;
 
 
 
-public abstract class Credito {
+public abstract class Ficha {
     
     protected String colorDenom; //Color-Denominacion de la ficha en cuestión
     protected double valor; //Valor de la ficha
     
     
-    public Credito( String color, double val ) { //Constructor
+    public Ficha( String color, double val ) { //Constructor
         this.colorDenom = color;
         this.valor = val;
         
