@@ -4,7 +4,9 @@
  */
 package main.classes;
 
+import credits.Ficha;
 import java.io.Serializable;
+import java.util.HashMap;
 
 /**
  *
@@ -16,6 +18,7 @@ public class Cliente implements Serializable {
     private String apellido; 
     private String dni;
     private String saldo;
+    private HashMap<Ficha, Integer> fichas;
     
     
     public Cliente(String Nombre, String Apellido, String Dni, String Saldo) {
@@ -23,6 +26,7 @@ public class Cliente implements Serializable {
         this.apellido = Apellido;
         this.dni = Dni;
         this.saldo = Saldo;
+        fichas = new HashMap();
         
     }
 
@@ -68,5 +72,16 @@ public class Cliente implements Serializable {
         return obj;
     }
     
-    
+    public void agregarFicha(Ficha color, int cantidad) {
+        Integer val = cantidad;
+        if (fichas.containsKey(color)) {
+            val += fichas.get(color);
+        }
+        fichas.put(color, val);
+        actualizarBalance();
+    }
+
+    private void actualizarBalance() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
