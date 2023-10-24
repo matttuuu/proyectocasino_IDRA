@@ -1,11 +1,22 @@
 package main.classes;
-import credits.Credito; //Hago este import para realizar pruebas de fichas en el cuarto panel temporal
-import credits.FichaAzul;
-import credits.FichaBlanca;
-import credits.FichaGris;
+import credits.Ficha; //Hago este import para realizar pruebas de fichas en el cuarto panel temporal
+
+import javax.swing.DefaultComboBoxModel;
 
 public class Transacciones extends javax.swing.JFrame {
 
+    protected String[] classNames = { 
+            "Gris",
+            "Blanca",
+            "Azul",
+            "Roja",
+            "Verde,",
+            "Amarilla",
+            "Negra",
+            "Naranja",
+            "Violeta"        
+        };
+    
     /**
      * Creates new form Transacciones
      */
@@ -43,7 +54,8 @@ public class Transacciones extends javax.swing.JFrame {
         fieldresultadoficha = new javax.swing.JTextField();
         lblficha1 = new javax.swing.JLabel();
         lblficha2 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBox2 = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
@@ -101,7 +113,7 @@ public class Transacciones extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(lblresultado_temp, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(431, Short.MAX_VALUE))
+                .addContainerGap(973, Short.MAX_VALUE))
         );
         panel1Layout.setVerticalGroup(
             panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -123,7 +135,7 @@ public class Transacciones extends javax.swing.JFrame {
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblresultado_temp)))
-                .addContainerGap(124, Short.MAX_VALUE))
+                .addContainerGap(210, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Conversiones", panel1);
@@ -137,14 +149,14 @@ public class Transacciones extends javax.swing.JFrame {
             .addGroup(panel2Layout.createSequentialGroup()
                 .addGap(307, 307, 307)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(454, Short.MAX_VALUE))
+                .addContainerGap(996, Short.MAX_VALUE))
         );
         panel2Layout.setVerticalGroup(
             panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel2Layout.createSequentialGroup()
                 .addGap(156, 156, 156)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(103, Short.MAX_VALUE))
+                .addContainerGap(189, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Cobro", panel2);
@@ -158,14 +170,14 @@ public class Transacciones extends javax.swing.JFrame {
             .addGroup(panel3Layout.createSequentialGroup()
                 .addGap(317, 317, 317)
                 .addComponent(jLabel4)
-                .addContainerGap(453, Short.MAX_VALUE))
+                .addContainerGap(995, Short.MAX_VALUE))
         );
         panel3Layout.setVerticalGroup(
             panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel3Layout.createSequentialGroup()
                 .addGap(163, 163, 163)
                 .addComponent(jLabel4)
-                .addContainerGap(105, Short.MAX_VALUE))
+                .addContainerGap(191, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Debitar", panel3);
@@ -177,9 +189,9 @@ public class Transacciones extends javax.swing.JFrame {
             }
         });
 
-        jLabel8.setText("Ficha uno es:");
+        jLabel8.setText("Elegir Ficha 1 para sumar");
 
-        jLabel9.setText("Ficha dos es:");
+        jLabel9.setText("Elegir ficha 2 para sumar");
 
         fieldresultadoficha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -187,10 +199,12 @@ public class Transacciones extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("Obtener valores");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jComboBox1.setModel(new DefaultComboBoxModel(classNames));
+
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Gris", "Blanco", "Azul", "Rojo", "Verde", "Amarillo", "Negro", "Naranja", "Violeta" }));
+        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jComboBox2ActionPerformed(evt);
             }
         });
 
@@ -199,39 +213,43 @@ public class Transacciones extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(79, 79, 79)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton2)
+                        .addGap(79, 79, 79)
+                        .addComponent(jButton2))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel8)))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addComponent(fieldresultadoficha, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblficha1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel9)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblficha1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(232, 232, 232)
                         .addComponent(lblficha2, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(288, 288, 288))))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(jButton3)
-                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(56, 56, 56)
+                .addGap(77, 77, 77)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(jLabel9)
                     .addComponent(lblficha1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblficha2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(14, 14, 14)
-                .addComponent(jButton3)
-                .addGap(19, 19, 19)
+                    .addComponent(lblficha2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(112, 112, 112)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(fieldresultadoficha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -248,7 +266,7 @@ public class Transacciones extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 161, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         jLabel1.setText("Seleccione el usuario correspondiente");
@@ -315,28 +333,14 @@ public class Transacciones extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_fieldresultadofichaActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        //  Cuando presiono el boton, me deberian aparecer los valores de las fichas que tengo ya establecidas
-        FichaBlanca ficha1 = new FichaBlanca();
-        FichaAzul ficha2 = new FichaAzul();
-        FichaGris fichag= new FichaGris();
-        
-        this.lblficha1.setText(ficha1.getColorDenomination()); //Me devuelve el color de la ficha, en string
-        this.lblficha2.setText(fichag.getColorDenomination());
-        
-        
-        
-        
-        
-    }//GEN-LAST:event_jButton3ActionPerformed
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // sumo los valores de la ficha blanca (2) y la ficha azul (5)
         
-        FichaBlanca ficha1 = new FichaBlanca();
-        FichaAzul ficha2 = new FichaAzul();
-        FichaGris fichag = new FichaGris();
-        double resultado =( ficha1.getValor() + fichag.getValor());
+        
+        
+        
+        
+        double resultado = 0;//pending 
         
         this.fieldresultadoficha.setText(Double.toString(resultado));
         
@@ -344,6 +348,10 @@ public class Transacciones extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -385,7 +393,8 @@ public class Transacciones extends javax.swing.JFrame {
     private javax.swing.JTextField fieldresultadoficha;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

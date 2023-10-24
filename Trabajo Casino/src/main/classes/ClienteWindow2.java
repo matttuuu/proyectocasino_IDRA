@@ -382,13 +382,14 @@ public class ClienteWindow2 extends javax.swing.JFrame {
                     prep.setString(3, dni);
                     prep.setString(4, saldo);        
                     
-                    prep.execute();
+                    prep.executeUpdate();
                     
                     
                 }
                 JOptionPane.showMessageDialog(rootPane, "Informacion Actualizada");
             }
             catch (Exception e){
+                System.out.println(e.getMessage());
                 JOptionPane.showMessageDialog(rootPane, "Error; no se han realizado cambios en la DB");
             }
                    
