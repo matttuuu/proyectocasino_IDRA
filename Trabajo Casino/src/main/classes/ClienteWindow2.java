@@ -6,6 +6,10 @@ import java.sql.Connection;
 import java.sql.*;
 import java.sql.PreparedStatement;
 
+//Project custom packages
+import tools.DateSelector;
+
+
 public class ClienteWindow2 extends javax.swing.JFrame {
 
     private DefaultTableModel tblModel;
@@ -20,6 +24,7 @@ public class ClienteWindow2 extends javax.swing.JFrame {
     public ClienteWindow2() {
         initComponents();
         initTable();
+        refreshTable();
     }
 
     @SuppressWarnings("unchecked")
@@ -462,6 +467,33 @@ public class ClienteWindow2 extends javax.swing.JFrame {
            }
        };
        clientes_jtable.setModel(tblModel);
+    }
+
+    private void refreshTable() {
+       try {
+           Class.forName("com.mysql.cj.jdbc.Driver");
+           
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/casinodb?zeroDateTimeBehavior=CONVERT_TO_NULL","root","");
+            Statement st = con.createStatement();
+            
+            String query = "select * from customers";
+            ResultSet rs = st.executeQuery(query);
+            
+            while(rs.next()){
+                String name = rs.getString("firstName");
+                String lastname = rs.getString("lastName");
+                String idDni = String.valueOf(rs.getString("dni"));
+                String balance = String.valueOf(rs.getString("balance"));
+                
+                String data[] = {name,lastname,idDni,balance};
+                this.tblModel.addRow(data);
+            }
+            //Importante: cerrar con con.close();
+            con.close();
+       }
+       catch(Exception e) {
+           System.out.println(e.getMessage());
+       }
     }
 }
 

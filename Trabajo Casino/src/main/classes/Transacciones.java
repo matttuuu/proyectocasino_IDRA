@@ -5,7 +5,7 @@ import javax.swing.DefaultComboBoxModel;
 
 public class Transacciones extends javax.swing.JFrame {
 
-    protected String[] classNames = { 
+    protected String[] classNames = { //esto se usa siquiera? Borrar si no tiene uso alguno
             "Gris",
             "Blanca",
             "Azul",

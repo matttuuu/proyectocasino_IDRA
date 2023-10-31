@@ -26,7 +26,8 @@ public class Cliente implements Serializable {
         this.apellido = Apellido;
         this.dni = Dni;
         this.saldo = Saldo;
-        fichas = new HashMap();
+        fichas = new HashMap(); //Realizar cambios necesarios para trabajar con el hashmap 
+        
         
     }
 
