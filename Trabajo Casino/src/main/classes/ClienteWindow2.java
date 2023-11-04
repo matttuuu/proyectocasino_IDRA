@@ -1,5 +1,6 @@
 package main.classes;
 
+
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.sql.Connection;
@@ -7,13 +8,17 @@ import java.sql.*;
 import java.sql.PreparedStatement;
 
 //Project custom packages
-import tools.DateSelector;
+import tools.DateSaver;
+
+
 
 
 public class ClienteWindow2 extends javax.swing.JFrame {
 
     private DefaultTableModel tblModel;
     private String [] tableArray = {"Nombre","Apellido","DNI","Saldo"};
+    
+    private DateSaver fecha = new DateSaver();
     
 
    
@@ -25,6 +30,7 @@ public class ClienteWindow2 extends javax.swing.JFrame {
         initComponents();
         initTable();
         refreshTable();
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -495,5 +501,12 @@ public class ClienteWindow2 extends javax.swing.JFrame {
            System.out.println(e.getMessage());
        }
     }
+    
+    
+        
+        
+        
+    
+    
 }
 

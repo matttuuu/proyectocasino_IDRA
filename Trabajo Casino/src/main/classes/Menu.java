@@ -1,16 +1,22 @@
 package main.classes;
 
+import tools.DateSaver;
+
+
 /**
  *
  * @author Facu
  */
 public class Menu extends javax.swing.JFrame {
-
+    
+   DateSaver ds = new DateSaver();
+    
     /**
      * Creates new form Menu
      */
     public Menu() {
         initComponents();
+        this.lastsession_lbl.setText("Ultimo inicio de sesión: "+ ds.getLastSession()); //
     }
 
     /**
@@ -64,7 +70,7 @@ public class Menu extends javax.swing.JFrame {
         lastsession_lbl.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lastsession_lbl.setForeground(new java.awt.Color(255, 51, 0));
         lastsession_lbl.setText("Último inicio de sesión: ");
-        getContentPane().add(lastsession_lbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 200, 30));
+        getContentPane().add(lastsession_lbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 490, 30));
 
         mainmenubackground.setBackground(new java.awt.Color(255, 102, 0));
         mainmenubackground.setForeground(new java.awt.Color(153, 255, 51));
@@ -91,6 +97,8 @@ public class Menu extends javax.swing.JFrame {
         
         ClienteWindow2 c2 = new ClienteWindow2();
         c2.setVisible(true);
+        
+        
         
     }//GEN-LAST:event_clients_menubtnActionPerformed
 
@@ -136,6 +144,11 @@ public class Menu extends javax.swing.JFrame {
         });
     }
 
+    
+    
+    
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton clients_menubtn;
     private javax.swing.JMenu jMenu1;
