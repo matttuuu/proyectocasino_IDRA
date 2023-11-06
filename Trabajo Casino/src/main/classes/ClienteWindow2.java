@@ -6,6 +6,7 @@ import javax.swing.table.DefaultTableModel;
 import java.sql.Connection;
 import java.sql.*;
 import java.sql.PreparedStatement;
+import java.util.List;
 
 //Project custom packages
 import tools.DateSaver;
@@ -18,11 +19,14 @@ public class ClienteWindow2 extends javax.swing.JFrame {
     private DefaultTableModel ModelAdd;
     private DefaultTableModel ModelShow;
     
+    
     private String [] tableArray = {"Nombre","Apellido","DNI","Saldo"};
     
     private DateSaver fecha = new DateSaver();
     
+    private DAOClientes daodb = new DAOClientes();
 
+    
    
     
     /**
@@ -33,6 +37,7 @@ public class ClienteWindow2 extends javax.swing.JFrame {
         setSize(815,600);
         initTable();
         refreshTable();
+        
         
     }
 
@@ -54,15 +59,9 @@ public class ClienteWindow2 extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         cleanFieldsButton = new javax.swing.JButton();
         buttonGuardar = new javax.swing.JButton();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel4 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         clientes_jtable = new javax.swing.JTable();
-        jPanel3 = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        database_jtable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(750, 500));
@@ -213,84 +212,19 @@ public class ClienteWindow2 extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 740, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 6, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(43, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("A agregar", jPanel4);
-
-        jPanel5.setBackground(new java.awt.Color(204, 204, 204));
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Base de Datos - ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 12), new java.awt.Color(102, 153, 255))); // NOI18N
-
-        database_jtable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane3.setViewportView(database_jtable);
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 736, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(112, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("Clientes registrados", jPanel3);
-
-        getContentPane().add(jTabbedPane1);
-        jTabbedPane1.setBounds(30, 230, 760, 370);
+        getContentPane().add(jPanel2);
+        jPanel2.setBounds(30, 240, 750, 266);
 
         pack();
         setLocationRelativeTo(null);
@@ -536,7 +470,6 @@ public class ClienteWindow2 extends javax.swing.JFrame {
     private javax.swing.JButton buttonGuardar;
     private javax.swing.JButton cleanFieldsButton;
     private javax.swing.JTable clientes_jtable;
-    private javax.swing.JTable database_jtable;
     private javax.swing.JTextField dniTextField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;
@@ -544,12 +477,7 @@ public class ClienteWindow2 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField nombreTextField;
     private javax.swing.JTextField saldoTextField;
     // End of variables declaration//GEN-END:variables
@@ -564,12 +492,19 @@ public class ClienteWindow2 extends javax.swing.JFrame {
        clientes_jtable.setModel(ModelAdd);
        
        
-       this.ModelShow = new DefaultTableModel(this.tableArray,0);
-       this.database_jtable.setModel(ModelShow);//
+      
     }
 
     private void refreshTable() { //
-        
+       // this.daodb
+                
+        List<String[]> clientes = daodb.listarTodo();
+        for(String[] data: clientes ){
+             this.ModelAdd.addRow(data);
+            //this.ModelAdd.addRow ( { data.getNombre(), data.getApellido(), data.getSaldo(), data.getJugadas().count() } );
+             
+        }
+        /*
        try {
            Class.forName("com.mysql.cj.jdbc.Driver");
            
@@ -586,14 +521,17 @@ public class ClienteWindow2 extends javax.swing.JFrame {
                 String balance = String.valueOf(rs.getString("balance"));
                 
                 String data[] = {name,lastname,idDni,balance};
-                this.ModelShow.addRow(data);
+                this.ModelAdd.addRow(data);
+                
+                
             }
             //Importante: cerrar con con.close();
             con.close();
        }
        catch(Exception e) {
            System.out.println(e.getMessage());
-       }
+       } 
+        */
     }
     
     
