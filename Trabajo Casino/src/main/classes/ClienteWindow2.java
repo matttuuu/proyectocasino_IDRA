@@ -15,7 +15,9 @@ import tools.DateSaver;
 
 public class ClienteWindow2 extends javax.swing.JFrame {
 
-    private DefaultTableModel tblModel;
+    private DefaultTableModel ModelAdd;
+    private DefaultTableModel ModelShow;
+    
     private String [] tableArray = {"Nombre","Apellido","DNI","Saldo"};
     
     private DateSaver fecha = new DateSaver();
@@ -28,6 +30,7 @@ public class ClienteWindow2 extends javax.swing.JFrame {
      */
     public ClienteWindow2() {
         initComponents();
+        setSize(815,600);
         initTable();
         refreshTable();
         
@@ -37,9 +40,6 @@ public class ClienteWindow2 extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel2 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        clientes_jtable = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         nombreTextField = new javax.swing.JTextField();
         apellidoTextField = new javax.swing.JTextField();
@@ -54,45 +54,19 @@ public class ClienteWindow2 extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         cleanFieldsButton = new javax.swing.JButton();
         buttonGuardar = new javax.swing.JButton();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel4 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        clientes_jtable = new javax.swing.JTable();
+        jPanel3 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        database_jtable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(750, 500));
         getContentPane().setLayout(null);
-
-        jPanel2.setBackground(new java.awt.Color(153, 153, 153));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Tabla de Clientes"));
-
-        clientes_jtable.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        clientes_jtable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Nombre", "Apellido", "Dni", "Title 4"
-            }
-        ));
-        clientes_jtable.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                clientes_jtableMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(clientes_jtable);
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 740, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 2, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(jPanel2);
-        jPanel2.setBounds(0, 200, 750, 310);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
         jPanel1.setLayout(null);
@@ -214,7 +188,109 @@ public class ClienteWindow2 extends javax.swing.JFrame {
         buttonGuardar.setBounds(530, 140, 170, 40);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 750, 200);
+        jPanel1.setBounds(40, 20, 760, 200);
+
+        jPanel2.setBackground(new java.awt.Color(153, 153, 153));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Tabla de clientes a agregar"));
+
+        clientes_jtable.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        clientes_jtable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nombre", "Apellido", "Dni", "Saldo"
+            }
+        ));
+        clientes_jtable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                clientes_jtableMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(clientes_jtable);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 740, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(43, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("A agregar", jPanel4);
+
+        jPanel5.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Base de Datos - ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 12), new java.awt.Color(102, 153, 255))); // NOI18N
+
+        database_jtable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(database_jtable);
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 736, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(112, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Clientes registrados", jPanel3);
+
+        getContentPane().add(jTabbedPane1);
+        jTabbedPane1.setBounds(30, 230, 760, 370);
 
         pack();
         setLocationRelativeTo(null);
@@ -239,7 +315,7 @@ public class ClienteWindow2 extends javax.swing.JFrame {
         
         Cliente c = new Cliente(nom,ap,dni,saldo); //Creamos una nueva instancia de cliente
         
-        tblModel.addRow(c.toArray()); //Usamos el metodo para agregar una fila del del tableModel
+        ModelAdd.addRow(c.toArray()); //Usamos el metodo para agregar una fila del del tableModel
         
         this.nombreTextField.setText(""); //Limpiamos los campos cuando teminamos de guardar 
         this.apellidoTextField.setText("");
@@ -312,7 +388,7 @@ public class ClienteWindow2 extends javax.swing.JFrame {
        }
        
        int fila = this.clientes_jtable.getSelectedRow();
-       this.tblModel.removeRow(fila);
+       this.ModelAdd.removeRow(fila);
       
     }//GEN-LAST:event_buttonEliminarActionPerformed
 
@@ -330,20 +406,20 @@ public class ClienteWindow2 extends javax.swing.JFrame {
         
         Cliente c = new Cliente(nom,ap,dni,saldo);
          
-        tblModel.setValueAt(c.getNombre(),fila,0);
-        tblModel.setValueAt(c.getApellido(), fila, 1);
-        tblModel.setValueAt(c.getDni(), fila, 2);
-        tblModel.setValueAt(c.getSaldo(), fila, 3);
+        ModelAdd.setValueAt(c.getNombre(),fila,0);
+        ModelAdd.setValueAt(c.getApellido(), fila, 1);
+        ModelAdd.setValueAt(c.getDni(), fila, 2);
+        ModelAdd.setValueAt(c.getSaldo(), fila, 3);
     }//GEN-LAST:event_buttonEditarActionPerformed
 
     private void clientes_jtableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clientes_jtableMouseClicked
         if (evt.getClickCount() == 2) {
             int fila = this.clientes_jtable.getSelectedRow();
             
-            String nombre = (String) tblModel.getValueAt(fila, 0);
-            String apellido = (String) tblModel.getValueAt(fila, 1);
-            String dni = (String) tblModel.getValueAt(fila, 2);
-            String saldo = (String) tblModel.getValueAt(fila, 3);
+            String nombre = (String) ModelAdd.getValueAt(fila, 0);
+            String apellido = (String) ModelAdd.getValueAt(fila, 1);
+            String dni = (String) ModelAdd.getValueAt(fila, 2);
+            String saldo = (String) ModelAdd.getValueAt(fila, 3);
             
             this.nombreTextField.setText(nombre);
             this.apellidoTextField.setText(apellido);
@@ -370,7 +446,8 @@ public class ClienteWindow2 extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "No hay informacion para guardar");
             
         }
-        else{
+        
+        else {
             //Armamos las variables y realizamos el try/catch!
             String nombre, apellido, dni, saldo;
             try {
@@ -398,6 +475,11 @@ public class ClienteWindow2 extends javax.swing.JFrame {
                     
                 }
                 JOptionPane.showMessageDialog(rootPane, "Informacion Actualizada");
+                this.ModelAdd.setRowCount(0);
+                
+                this.ModelShow.setRowCount(0);
+                refreshTable();//El metodo refresh table actualiza el "ModelShow", que es el modelo de tabla de muestra (db).
+                //***Posible problema de modularidad a futuro
             }
             catch (Exception e){
                 System.out.println(e.getMessage());
@@ -405,6 +487,7 @@ public class ClienteWindow2 extends javax.swing.JFrame {
             }
                    
         }
+        
     }//GEN-LAST:event_buttonGuardarActionPerformed
 
     
@@ -453,6 +536,7 @@ public class ClienteWindow2 extends javax.swing.JFrame {
     private javax.swing.JButton buttonGuardar;
     private javax.swing.JButton cleanFieldsButton;
     private javax.swing.JTable clientes_jtable;
+    private javax.swing.JTable database_jtable;
     private javax.swing.JTextField dniTextField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;
@@ -460,22 +544,32 @@ public class ClienteWindow2 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField nombreTextField;
     private javax.swing.JTextField saldoTextField;
     // End of variables declaration//GEN-END:variables
 
     private void initTable() {
-       tblModel = new DefaultTableModel(this.tableArray,0){
+       ModelAdd = new DefaultTableModel(this.tableArray,0){
            @Override
            public boolean isCellEditable(int row, int column){
                return false;
            }
        };
-       clientes_jtable.setModel(tblModel);
+       clientes_jtable.setModel(ModelAdd);
+       
+       
+       this.ModelShow = new DefaultTableModel(this.tableArray,0);
+       this.database_jtable.setModel(ModelShow);//
     }
 
-    private void refreshTable() {
+    private void refreshTable() { //
+        
        try {
            Class.forName("com.mysql.cj.jdbc.Driver");
            
@@ -492,7 +586,7 @@ public class ClienteWindow2 extends javax.swing.JFrame {
                 String balance = String.valueOf(rs.getString("balance"));
                 
                 String data[] = {name,lastname,idDni,balance};
-                this.tblModel.addRow(data);
+                this.ModelShow.addRow(data);
             }
             //Importante: cerrar con con.close();
             con.close();
