@@ -10,15 +10,13 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 
-public class DAOClientes { //
-    
-    //
-    
-    public List <String[]> listarTodo()  {
+
+public class DAOClientes { 
+  
+    public List <String[]> listarTodo()  {     
         
         List<String[]> salida = new ArrayList();
-        
-        
+               
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/casinodb?zeroDateTimeBehavior=CONVERT_TO_NULL","root","");
@@ -36,13 +34,9 @@ public class DAOClientes { //
                 String data[] = {name,lastname,idDni,balance};
                 salida.add(data);
                 
-                
-                
             }
             
-            con.close();
-            
-            
+            con.close();       
         }
         catch(Exception e){
             e.printStackTrace();
@@ -78,6 +72,25 @@ public class DAOClientes { //
         }
         
         
+    }
+    
+    public void Delete(String dni) {
+        
+        
+        try {
+             Class.forName("com.mysql.cj.jdbc.Driver");
+             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/casinodb?zeroDateTimeBehavior=CONVERT_TO_NULL","root","");          
+            String query = "DELETE FROM customers WHERE (dni) = ?;";
+            PreparedStatement prep = con.prepareStatement(query);
+            prep.setString(1,dni ); //Podria ser que funcione con setString, podria ser que no :P
+            
+            JOptionPane.showMessageDialog(null, "Se borro el registro exitosamente");
+            con.close();
+            
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
     }
     
     

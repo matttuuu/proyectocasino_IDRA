@@ -58,7 +58,7 @@ public class ClienteWindow2 extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         cleanFieldsButton = new javax.swing.JButton();
-        buttonGuardar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         clientes_jtable = new javax.swing.JTable();
@@ -175,16 +175,14 @@ public class ClienteWindow2 extends javax.swing.JFrame {
         jPanel1.add(cleanFieldsButton);
         cleanFieldsButton.setBounds(640, 20, 50, 23);
 
-        buttonGuardar.setBackground(new java.awt.Color(153, 153, 153));
-        buttonGuardar.setForeground(new java.awt.Color(153, 255, 153));
-        buttonGuardar.setText("Guardar ");
-        buttonGuardar.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setText("refresh table");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonGuardarActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(buttonGuardar);
-        buttonGuardar.setBounds(530, 140, 170, 40);
+        jPanel1.add(jButton1);
+        jButton1.setBounds(30, 30, 110, 40);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(40, 20, 760, 200);
@@ -247,14 +245,27 @@ public class ClienteWindow2 extends javax.swing.JFrame {
         String dni = this.dniTextField.getText();
         String saldo = this.saldoTextField.getText();
         
-        Cliente c = new Cliente(nom,ap,dni,saldo); //Creamos una nueva instancia de cliente
+        //7-11-23
+        //La funcionalidad de guardar deberia ser mas parecido a lo siguiente
         
-        ModelAdd.addRow(c.toArray()); //Usamos el metodo para agregar una fila del del tableModel
+       //Cuando se presiona el boton guardar, directamente se envia la informacion obtenida en los campos, hacia la db
+       //Acto seguido, se refresca la db
+        
+        
+        
+        
+        Cliente newClient = new Cliente(nom,ap,dni,saldo); //Creamos una nueva instancia de cliente
+        
+        this.daodb.Save(newClient);
+        
+        //ModelAdd.addRow(newClient.toArray()); //Usamos el metodo para agregar una fila del del tableModel
         
         this.nombreTextField.setText(""); //Limpiamos los campos cuando teminamos de guardar 
         this.apellidoTextField.setText("");
         this.dniTextField.setText("");
         this.saldoTextField.setText("");       
+        
+        this.refreshTable();
     }//GEN-LAST:event_buttonAgregarActionPerformed
 
     
@@ -317,12 +328,18 @@ public class ClienteWindow2 extends javax.swing.JFrame {
     }//GEN-LAST:event_saldoTextFieldKeyTyped
 
     private void buttonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEliminarActionPerformed
-       if (this.clientes_jtable.getSelectedRowCount() != 1){
+     
+        /*
+        if (this.clientes_jtable.getSelectedRowCount() != 1){
            return;
        }
        
        int fila = this.clientes_jtable.getSelectedRow();
        this.ModelAdd.removeRow(fila);
+        */
+       int fila = this.clientes_jtable.getSelectedRow();
+       
+        
       
     }//GEN-LAST:event_buttonEliminarActionPerformed
 
@@ -370,59 +387,13 @@ public class ClienteWindow2 extends javax.swing.JFrame {
        this.saldoTextField.setText("");
     }//GEN-LAST:event_cleanFieldsButtonActionPerformed
 
-    private void buttonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGuardarActionPerformed
-        // Seleccionamos todos los datos que tengamos actualmente en la tabla,
-        // y realizamos la query correspondiente!
-        
-        //DefaultTableModel tblModelDb = (DefaultTableModel) this.clientes_jtable.getModel();
-        
-        if (this.clientes_jtable.getRowCount() == 0) {
-            JOptionPane.showMessageDialog(rootPane, "No hay informacion para guardar");
-            
-        }
-        
-        else {
-            //Armamos las variables y realizamos el try/catch!
-            String nombre, apellido, dni, saldo;
-            try {
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/casinodb?zeroDateTimeBehavior=CONVERT_TO_NULL","root","");
-                
-                for (int i = 0; i < this.clientes_jtable.getRowCount(); i++) {
-                    nombre = this.clientes_jtable.getValueAt(i,0).toString();
-                    apellido = this.clientes_jtable.getValueAt(i,1).toString();
-                    dni =  this.clientes_jtable.getValueAt(i,2).toString();
-                    saldo = this.clientes_jtable.getValueAt(i,3).toString(); //////
-                    
-                    //query
-                    String query = "insert into customers (firstName, lastName, dni, balance) "
-                            + " values (?, ?, ? ,?);";
-                    PreparedStatement prep = con.prepareStatement(query);
-                    
-                    prep.setString(1, nombre);
-                    prep.setString(2, apellido);
-                    prep.setString(3, dni);
-                    prep.setString(4, saldo);        
-                    
-                    prep.executeUpdate();
-                    
-                    
-                }
-                JOptionPane.showMessageDialog(rootPane, "Informacion Actualizada");
-                this.ModelAdd.setRowCount(0);
-                
-                this.ModelShow.setRowCount(0);
-                refreshTable();//El metodo refresh table actualiza el "ModelShow", que es el modelo de tabla de muestra (db).
-                //***Posible problema de modularidad a futuro
-            }
-            catch (Exception e){
-                System.out.println(e.getMessage());
-                JOptionPane.showMessageDialog(rootPane, "Error; no se han realizado cambios en la DB");
-            }
-                   
-        }
-        
-    }//GEN-LAST:event_buttonGuardarActionPerformed
+   
+    
+    
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        this.refreshTable();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     
     
@@ -467,10 +438,10 @@ public class ClienteWindow2 extends javax.swing.JFrame {
     private javax.swing.JButton buttonAgregar;
     private javax.swing.JButton buttonEditar;
     private javax.swing.JButton buttonEliminar;
-    private javax.swing.JButton buttonGuardar;
     private javax.swing.JButton cleanFieldsButton;
     private javax.swing.JTable clientes_jtable;
     private javax.swing.JTextField dniTextField;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -496,14 +467,20 @@ public class ClienteWindow2 extends javax.swing.JFrame {
     }
 
     private void refreshTable() { //
-       // this.daodb
+       this.clearTable();
+       
                 
         List<String[]> clientes = daodb.listarTodo();
         for(String[] data: clientes ){
              this.ModelAdd.addRow(data);
+             
+             
             //this.ModelAdd.addRow ( { data.getNombre(), data.getApellido(), data.getSaldo(), data.getJugadas().count() } );
              
         }
+        //this.clearTable();
+       
+        
         /*
        try {
            Class.forName("com.mysql.cj.jdbc.Driver");
@@ -532,6 +509,10 @@ public class ClienteWindow2 extends javax.swing.JFrame {
            System.out.println(e.getMessage());
        } 
         */
+    }
+    
+    private void clearTable() {
+        this.ModelAdd.setRowCount(0);
     }
     
     
