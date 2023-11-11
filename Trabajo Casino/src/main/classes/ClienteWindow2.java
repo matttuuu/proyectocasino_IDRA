@@ -175,7 +175,7 @@ public class ClienteWindow2 extends javax.swing.JFrame {
         jPanel1.add(cleanFieldsButton);
         cleanFieldsButton.setBounds(640, 20, 50, 23);
 
-        jButton1.setText("refresh table");
+        jButton1.setText("debug eliminar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -329,18 +329,21 @@ public class ClienteWindow2 extends javax.swing.JFrame {
 
     private void buttonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEliminarActionPerformed
      
-        /*
-        if (this.clientes_jtable.getSelectedRowCount() != 1){
-           return;
-       }
-       
-       int fila = this.clientes_jtable.getSelectedRow();
-       this.ModelAdd.removeRow(fila);
-        */
-       int fila = this.clientes_jtable.getSelectedRow();
-       
+      //this.refreshTable();    // Antes usabamos este boton para checkear que funcione el refresh
+                                            // Ahora que anda, poodemos usarlo para testear eliminar directamente de la db
+                                            // Traemos los campos a la tabla, y de ahi borramos (deberiamos checkear antes que sea ese campo el que queramos borrar)
+                                            // Como algunos campos se pueden repetir, deberiamos hacer que coincida la info de los 4 textfields con los campos de la db,
+                                            // Antes de borrar
+                                            
+        String nom = this.nombreTextField.getText(); //Tomamos el texto que este en nuestros campos
+        String ap = this.apellidoTextField.getText();
+        String dni = this.dniTextField.getText();
+        String saldo = this.saldoTextField.getText();
         
-      
+        Cliente c = new Cliente(nom,ap,dni,saldo);
+        
+        this.daodb.Delete(c);
+        this.refreshTable();
     }//GEN-LAST:event_buttonEliminarActionPerformed
 
     
@@ -391,8 +394,22 @@ public class ClienteWindow2 extends javax.swing.JFrame {
     
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        this.refreshTable();
+       
+        //this.refreshTable();    // Antes usabamos este boton para checkear que funcione el refresh
+                                            // Ahora que anda, poodemos usarlo para testear eliminar directamente de la db
+                                            // Traemos los campos a la tabla, y de ahi borramos (deberiamos checkear antes que sea ese campo el que queramos borrar)
+                                            // Como algunos campos se pueden repetir, deberiamos hacer que coincida la info de los 4 textfields con los campos de la db,
+                                            // Antes de borrar
+          /*                                
+        String nom = this.nombreTextField.getText(); //Tomamos el texto que este en nuestros campos
+        String ap = this.apellidoTextField.getText();
+        String dni = this.dniTextField.getText();
+        String saldo = this.saldoTextField.getText();
+        
+        Cliente c = new Cliente(nom,ap,dni,saldo);
+        
+        this.daodb.Delete(c);
+        */
     }//GEN-LAST:event_jButton1ActionPerformed
 
     

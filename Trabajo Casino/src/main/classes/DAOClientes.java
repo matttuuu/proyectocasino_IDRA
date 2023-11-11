@@ -74,15 +74,26 @@ public class DAOClientes {
         
     }
     
-    public void Delete(String dni) {
-        
+    public void Delete(Cliente c) {
+        /*
+        String nombre = c.getNombre();
+        String apellido = c.getApellido();
+        String dni = c.getDni();
+        String saldo = c.getSaldo();
+        */
         
         try {
              Class.forName("com.mysql.cj.jdbc.Driver");
              Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/casinodb?zeroDateTimeBehavior=CONVERT_TO_NULL","root","");          
-            String query = "DELETE FROM customers WHERE (dni) = ?;";
+            String query = "DELETE FROM customers WHERE (firstName, lastName, dni, balance) = (?,?,?,?);";
+            
             PreparedStatement prep = con.prepareStatement(query);
-            prep.setString(1,dni ); //Podria ser que funcione con setString, podria ser que no :P
+            prep.setString(1,c.getNombre() ); //Podria ser que funcione con setString, podria ser que no :P
+            prep.setString(2,c.getApellido() );
+            prep.setString(3,c.getDni());
+            prep.setString(4, c.getSaldo());
+            
+            prep.execute();
             
             JOptionPane.showMessageDialog(null, "Se borro el registro exitosamente");
             con.close();
@@ -90,6 +101,7 @@ public class DAOClientes {
         }
         catch(Exception e){
             e.printStackTrace();
+            JOptionPane.showMessageDialog(null,"Ocurrio un error, revisar stacktrace");
         }
     }
     
