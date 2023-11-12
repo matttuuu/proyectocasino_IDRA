@@ -47,8 +47,7 @@ public class DAOClientes {
     
     
     
-    public void Save(Cliente c) {
-       
+    public void Save(Cliente c) { 
         try {
              Class.forName("com.mysql.cj.jdbc.Driver");
              Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/casinodb?zeroDateTimeBehavior=CONVERT_TO_NULL","root","");          
@@ -62,8 +61,7 @@ public class DAOClientes {
                     prep.setString(3, c.getDni());
                     prep.setString(4, c.getSaldo());        
                     
-                    prep.executeUpdate();
-                
+                    prep.executeUpdate();             
         }
        
         catch(Exception e) { 
@@ -71,20 +69,13 @@ public class DAOClientes {
             //message
         }
         
-        
     }
     
-    public void Delete(Cliente c) {
-        /*
-        String nombre = c.getNombre();
-        String apellido = c.getApellido();
-        String dni = c.getDni();
-        String saldo = c.getSaldo();
-        */
-        
+    public void Delete(Cliente c) {        
         try {
              Class.forName("com.mysql.cj.jdbc.Driver");
-             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/casinodb?zeroDateTimeBehavior=CONVERT_TO_NULL","root","");          
+             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/casinodb?zeroDateTimeBehavior=CONVERT_TO_NULL","root","");   
+             
             String query = "DELETE FROM customers WHERE (firstName, lastName, dni, balance) = (?,?,?,?);";
             
             PreparedStatement prep = con.prepareStatement(query);
@@ -101,10 +92,44 @@ public class DAOClientes {
         }
         catch(Exception e){
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null,"Ocurrio un error, revisar stacktrace");
+            JOptionPane.showMessageDialog(null,"Ocurrio un error, no se han borrado campos");
         }
     }
     
+    
+    public void Edit(Cliente c) {  
+        try {
+             Class.forName("com.mysql.cj.jdbc.Driver");
+             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/casinodb?zeroDateTimeBehavior=CONVERT_TO_NULL","root","");
+             
+             String query ="UPDATE customers SET firstName = ?, lastName = ?, dni = ?, balance = ? WHERE firstName = ? AND lastName = ? AND dni = ? AND balance = ?;";
+            
+              PreparedStatement prep = con.prepareStatement(query);
+                prep.setString(1,c.getNombre() ); //Podria ser que funcione con setString, podria ser que no :P
+                prep.setString(2,c.getApellido() );
+                prep.setString(3,c.getDni());
+                prep.setString(4, c.getSaldo());
+                
+                //WHERE            
+                prep.setString(5, c.getNombre());
+                prep.setString(6, c.getApellido());
+                prep.setString(7, c.getDni());
+                prep.setString(8, c.getSaldo());
+                
+                prep.executeUpdate();
+
+                JOptionPane.showMessageDialog(null, "Campo Actualizado");
+               con.close();
+             
+                
+        }       
+        catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null,"Ocurrió un error - No se realizaron cambios");
+            
+        }
+        
+    }
     
     
 }

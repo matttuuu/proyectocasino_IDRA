@@ -1,11 +1,21 @@
 package main.classes;
 import credits.Ficha; //Hago este import para realizar pruebas de fichas en el cuarto panel temporal
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
-import javax.swing.DefaultComboBoxModel;
+
+
+
 
 public class Transacciones extends javax.swing.JFrame {
 
-    protected String[] classNames = { //esto se usa siquiera? Borrar si no tiene uso alguno
+    private String [] tableArray = {"Nombre","Apellido","DNI","Saldo"};
+    
+     private DefaultTableModel transactionsTableModel;
+     
+     private DAOClientes daodb = new DAOClientes();
+    
+    private String[] ArrayFichas = { //esto se usa siquiera? Borrar si no tiene uso alguno
             "Gris",
             "Blanca",
             "Azul",
@@ -17,11 +27,13 @@ public class Transacciones extends javax.swing.JFrame {
             "Violeta"        
         };
     
-    /**
-     * Creates new form Transacciones
-     */
+   
     public Transacciones() {
         initComponents();
+         setSize(930,630);
+         initTable();
+         refreshTable();
+         clearLabels();
     }
 
     /**
@@ -35,323 +47,114 @@ public class Transacciones extends javax.swing.JFrame {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
         panel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        usdfieldtemp = new javax.swing.JTextField();
-        eurfieldtemp = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        lblresultado_temp = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        panel2 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        panel3 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        fieldresultadoficha = new javax.swing.JTextField();
-        lblficha1 = new javax.swing.JLabel();
-        lblficha2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
-        jSeparator1 = new javax.swing.JSeparator();
+        label1_nombre = new javax.swing.JLabel();
+        label1_apellido = new javax.swing.JLabel();
+        label1_dni = new javax.swing.JLabel();
+        label1_saldo = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        transacciones_jtable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        getContentPane().setLayout(null);
 
-        jLabel2.setText("EUR");
+        panel1.setLayout(null);
 
-        jLabel5.setText("USD");
+        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel1.setLayout(null);
 
-        jLabel6.setText("conversor de ejemplo");
+        label1_nombre.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        label1_nombre.setText("Nombre: ");
+        jPanel1.add(label1_nombre);
+        label1_nombre.setBounds(20, 10, 180, 30);
 
-        usdfieldtemp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                usdfieldtempActionPerformed(evt);
-            }
-        });
+        label1_apellido.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        label1_apellido.setText("Apellido:");
+        jPanel1.add(label1_apellido);
+        label1_apellido.setBounds(20, 50, 180, 30);
 
-        eurfieldtemp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                eurfieldtempActionPerformed(evt);
-            }
-        });
+        label1_dni.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        label1_dni.setText("DNI:");
+        jPanel1.add(label1_dni);
+        label1_dni.setBounds(20, 90, 180, 30);
 
-        jLabel7.setText("Resultado");
+        label1_saldo.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        label1_saldo.setText("Saldo:");
+        jPanel1.add(label1_saldo);
+        label1_saldo.setBounds(20, 130, 180, 30);
 
-        jButton1.setText("Convertir");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        panel1.add(jPanel1);
+        jPanel1.setBounds(30, 20, 370, 260);
 
-        javax.swing.GroupLayout panel1Layout = new javax.swing.GroupLayout(panel1);
-        panel1.setLayout(panel1Layout);
-        panel1Layout.setHorizontalGroup(
-            panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel1Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panel1Layout.createSequentialGroup()
-                        .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel7)
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(usdfieldtemp, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel2)))
-                        .addGap(18, 18, 18)
-                        .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addComponent(eurfieldtemp, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lblresultado_temp, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(973, Short.MAX_VALUE))
-        );
-        panel1Layout.setVerticalGroup(
-            panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel1Layout.createSequentialGroup()
-                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel1Layout.createSequentialGroup()
-                        .addGap(69, 69, 69)
-                        .addComponent(jLabel6)
-                        .addGap(3, 3, 3)
-                        .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(usdfieldtemp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(eurfieldtemp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(32, 32, 32)
-                        .addComponent(jLabel7))
-                    .addGroup(panel1Layout.createSequentialGroup()
-                        .addGap(109, 109, 109)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblresultado_temp)))
-                .addContainerGap(210, Short.MAX_VALUE))
-        );
+        jTabbedPane1.addTab("Test-Fichas", panel1);
 
-        jTabbedPane1.addTab("Conversiones", panel1);
+        jPanel2.setLayout(null);
+        jTabbedPane1.addTab("Información", jPanel2);
 
-        jLabel3.setText("Panel2");
-
-        javax.swing.GroupLayout panel2Layout = new javax.swing.GroupLayout(panel2);
-        panel2.setLayout(panel2Layout);
-        panel2Layout.setHorizontalGroup(
-            panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel2Layout.createSequentialGroup()
-                .addGap(307, 307, 307)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(996, Short.MAX_VALUE))
-        );
-        panel2Layout.setVerticalGroup(
-            panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel2Layout.createSequentialGroup()
-                .addGap(156, 156, 156)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(189, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("Cobro", panel2);
-
-        jLabel4.setText("Panel3");
-
-        javax.swing.GroupLayout panel3Layout = new javax.swing.GroupLayout(panel3);
-        panel3.setLayout(panel3Layout);
-        panel3Layout.setHorizontalGroup(
-            panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel3Layout.createSequentialGroup()
-                .addGap(317, 317, 317)
-                .addComponent(jLabel4)
-                .addContainerGap(995, Short.MAX_VALUE))
-        );
-        panel3Layout.setVerticalGroup(
-            panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel3Layout.createSequentialGroup()
-                .addGap(163, 163, 163)
-                .addComponent(jLabel4)
-                .addContainerGap(191, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("Debitar", panel3);
-
-        jButton2.setText("Sumar valores");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        jLabel8.setText("Elegir Ficha 1 para sumar");
-
-        jLabel9.setText("Elegir ficha 2 para sumar");
-
-        fieldresultadoficha.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fieldresultadofichaActionPerformed(evt);
-            }
-        });
-
-        jComboBox1.setModel(new DefaultComboBoxModel(classNames));
-
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Gris", "Blanco", "Azul", "Rojo", "Verde", "Amarillo", "Negro", "Naranja", "Violeta" }));
-        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox2ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(79, 79, 79)
-                        .addComponent(jButton2))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel8)))
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(fieldresultadoficha, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblficha1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(232, 232, 232)
-                        .addComponent(lblficha2, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(288, 288, 288))))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(77, 77, 77)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel9)
-                    .addComponent(lblficha1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblficha2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(112, 112, 112)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(fieldresultadoficha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(131, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("Test-Fichas", jPanel2);
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        getContentPane().add(jTabbedPane1);
+        jTabbedPane1.setBounds(10, 260, 900, 330);
 
         jLabel1.setText("Seleccione el usuario correspondiente");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(10, 10, 290, 25);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(511, 511, 511)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 776, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addComponent(jLabel1))))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(137, 137, 137)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(26, 26, 26)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15))
-        );
+        jPanel3.setBackground(new java.awt.Color(102, 204, 255));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "BD - ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 12), new java.awt.Color(255, 255, 255))); // NOI18N
+        jPanel3.setForeground(new java.awt.Color(153, 153, 153));
+        jPanel3.setToolTipText("");
+        jPanel3.setVerifyInputWhenFocusTarget(false);
+        jPanel3.setLayout(null);
+
+        transacciones_jtable.setAutoCreateRowSorter(true);
+        transacciones_jtable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        transacciones_jtable.setToolTipText("");
+        transacciones_jtable.setAutoscrolls(false);
+        transacciones_jtable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                transacciones_jtableMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(transacciones_jtable);
+
+        jPanel3.add(jScrollPane1);
+        jScrollPane1.setBounds(10, 20, 870, 180);
+
+        getContentPane().add(jPanel3);
+        jPanel3.setBounds(10, 40, 890, 210);
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void usdfieldtempActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usdfieldtempActionPerformed
+    private void transacciones_jtableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_transacciones_jtableMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_usdfieldtempActionPerformed
-
-    private void eurfieldtempActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eurfieldtempActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_eurfieldtempActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        String text = this.usdfieldtemp.getText();
-        double value = Double.parseDouble(text) * 0.94;
-        double finalResult = Math.round(value);
-        this.lblresultado_temp.setText(finalResult+"");
+            if (evt.getClickCount() == 2) {
+            int fila = this.transacciones_jtable.getSelectedRow();
+            
+            String nombre = this.transacciones_jtable.getValueAt(fila, 0).toString();
+            String apellido = this.transacciones_jtable.getValueAt(fila, 1).toString();
+            String dni = this.transacciones_jtable.getValueAt(fila, 2).toString();
+            String saldo = this.transacciones_jtable.getValueAt(fila, 3).toString();
         
-                
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void fieldresultadofichaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldresultadofichaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fieldresultadofichaActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // sumo los valores de la ficha blanca (2) y la ficha azul (5)
-        
-        
-        
-        
-        
-        double resultado = 0;//pending 
-        
-        this.fieldresultadoficha.setText(Double.toString(resultado));
-        
-        
-        
-        
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox2ActionPerformed
+            this.label1_nombre.setText("Nombre: " + nombre);
+            this.label1_apellido.setText("Apellido: " + apellido);
+            this.label1_dni.setText("DNI: " + dni);
+            this.label1_saldo.setText("Saldo: " + saldo);
+        }
+    }//GEN-LAST:event_transacciones_jtableMouseClicked
 
     /**
      * @param args the command line arguments
@@ -389,31 +192,64 @@ public class Transacciones extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField eurfieldtemp;
-    private javax.swing.JTextField fieldresultadoficha;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JLabel lblficha1;
-    private javax.swing.JLabel lblficha2;
-    private javax.swing.JLabel lblresultado_temp;
+    private javax.swing.JLabel label1_apellido;
+    private javax.swing.JLabel label1_dni;
+    private javax.swing.JLabel label1_nombre;
+    private javax.swing.JLabel label1_saldo;
     private javax.swing.JPanel panel1;
-    private javax.swing.JPanel panel2;
-    private javax.swing.JPanel panel3;
-    private javax.swing.JTextField usdfieldtemp;
+    private javax.swing.JTable transacciones_jtable;
     // End of variables declaration//GEN-END:variables
+
+    private void initTable(){
+        this.transactionsTableModel = new DefaultTableModel(this.tableArray,0){
+            
+            
+            @Override
+            public boolean isCellEditable(int row, int column){
+                return false;
+            }
+            
+            
+         };
+        this.transacciones_jtable.setModel(transactionsTableModel);
+            
+       
+    }
+    
+    private void refreshTable() {
+        this.clearTable();
+        List<String[]> clientes = daodb.listarTodo();
+         for(String[] data: clientes ) {
+             this.transactionsTableModel.addRow(data);
+         }
+             
+ }
+ 
+    
+     private void clearTable() {
+        this.transactionsTableModel.setRowCount(0);
+    }
+     
+     
+    private void clearLabels(){
+        this.label1_nombre.setText("Nombre: ");
+        this.label1_apellido.setText("Apellido: ");
+        this.label1_dni.setText("DNI: ");
+        this.label1_saldo.setText("Saldo: ");
+        
+    }
+    
+    
+    
+    
+    
+    
 }
+    
+

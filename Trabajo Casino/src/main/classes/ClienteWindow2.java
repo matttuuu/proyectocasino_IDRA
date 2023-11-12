@@ -1,14 +1,9 @@
 package main.classes;
 
-
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import java.sql.Connection;
-import java.sql.*;
-import java.sql.PreparedStatement;
 import java.util.List;
 
-//Project custom packages
+//CUSTOM PROJECT PACKAGES
 import tools.DateSaver;
 
 
@@ -34,7 +29,7 @@ public class ClienteWindow2 extends javax.swing.JFrame {
      */
     public ClienteWindow2() {
         initComponents();
-        setSize(815,600);
+        setSize(825,600);
         initTable();
         refreshTable();
         
@@ -58,7 +53,6 @@ public class ClienteWindow2 extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         cleanFieldsButton = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         clientes_jtable = new javax.swing.JTable();
@@ -129,7 +123,7 @@ public class ClienteWindow2 extends javax.swing.JFrame {
             }
         });
         jPanel1.add(buttonAgregar);
-        buttonAgregar.setBounds(70, 140, 200, 40);
+        buttonAgregar.setBounds(190, 140, 200, 40);
 
         buttonEditar.setText("Editar");
         buttonEditar.setToolTipText("Haga doble click sobre una fila de la tabla para llenar los campos. \nActo seguido pulse este botón para modificar y guardar los cambios realizados");
@@ -148,7 +142,7 @@ public class ClienteWindow2 extends javax.swing.JFrame {
             }
         });
         jPanel1.add(buttonEliminar);
-        buttonEliminar.setBounds(300, 140, 190, 40);
+        buttonEliminar.setBounds(450, 140, 190, 40);
 
         jLabel5.setFont(new java.awt.Font("Lucida Sans", 0, 14)); // NOI18N
         jLabel5.setText("Apellido");
@@ -174,15 +168,6 @@ public class ClienteWindow2 extends javax.swing.JFrame {
         });
         jPanel1.add(cleanFieldsButton);
         cleanFieldsButton.setBounds(640, 20, 50, 23);
-
-        jButton1.setText("debug eliminar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton1);
-        jButton1.setBounds(30, 30, 110, 40);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(40, 20, 760, 200);
@@ -210,19 +195,18 @@ public class ClienteWindow2 extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 760, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 6, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel2);
-        jPanel2.setBounds(30, 240, 750, 266);
+        jPanel2.setBounds(30, 240, 770, 272);
 
         pack();
         setLocationRelativeTo(null);
@@ -348,6 +332,7 @@ public class ClienteWindow2 extends javax.swing.JFrame {
 
     
     private void buttonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditarActionPerformed
+       
         if (this.clientes_jtable.getSelectedRowCount() != 1)  {
             return;
         }
@@ -356,14 +341,11 @@ public class ClienteWindow2 extends javax.swing.JFrame {
         String ap = this.apellidoTextField.getText();
         String dni = this.dniTextField.getText();
         String saldo = this.saldoTextField.getText();
-        int fila = clientes_jtable.getSelectedRow();
-        
+          
         Cliente c = new Cliente(nom,ap,dni,saldo);
-         
-        ModelAdd.setValueAt(c.getNombre(),fila,0);
-        ModelAdd.setValueAt(c.getApellido(), fila, 1);
-        ModelAdd.setValueAt(c.getDni(), fila, 2);
-        ModelAdd.setValueAt(c.getSaldo(), fila, 3);
+        this.daodb.Edit(c);
+        this.refreshTable();       
+        
     }//GEN-LAST:event_buttonEditarActionPerformed
 
     private void clientes_jtableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clientes_jtableMouseClicked
@@ -393,25 +375,6 @@ public class ClienteWindow2 extends javax.swing.JFrame {
    
     
     
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       
-        //this.refreshTable();    // Antes usabamos este boton para checkear que funcione el refresh
-                                            // Ahora que anda, poodemos usarlo para testear eliminar directamente de la db
-                                            // Traemos los campos a la tabla, y de ahi borramos (deberiamos checkear antes que sea ese campo el que queramos borrar)
-                                            // Como algunos campos se pueden repetir, deberiamos hacer que coincida la info de los 4 textfields con los campos de la db,
-                                            // Antes de borrar
-          /*                                
-        String nom = this.nombreTextField.getText(); //Tomamos el texto que este en nuestros campos
-        String ap = this.apellidoTextField.getText();
-        String dni = this.dniTextField.getText();
-        String saldo = this.saldoTextField.getText();
-        
-        Cliente c = new Cliente(nom,ap,dni,saldo);
-        
-        this.daodb.Delete(c);
-        */
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     
     
     
@@ -458,7 +421,6 @@ public class ClienteWindow2 extends javax.swing.JFrame {
     private javax.swing.JButton cleanFieldsButton;
     private javax.swing.JTable clientes_jtable;
     private javax.swing.JTextField dniTextField;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
