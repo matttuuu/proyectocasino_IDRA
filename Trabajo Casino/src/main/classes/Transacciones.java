@@ -1,9 +1,8 @@
 package main.classes;
 import credits.Ficha; //Hago este import para realizar pruebas de fichas en el cuarto panel temporal
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
-
-
 
 
 
@@ -11,23 +10,25 @@ public class Transacciones extends javax.swing.JFrame {
 
     private String [] tableArray = {"Nombre","Apellido","DNI","Saldo"};
     
-     private DefaultTableModel transactionsTableModel;
+    private DefaultTableModel transactionsTableModel;
      
-     private DAOClientes daodb = new DAOClientes();
+    private DAOClientes daodb = new DAOClientes();
+     
+   
     
-    private String[] ArrayFichas = { //esto se usa siquiera? Borrar si no tiene uso alguno
-            "Gris",
-            "Blanca",
-            "Azul",
-            "Roja",
-            "Verde,",
-            "Amarilla",
-            "Negra",
-            "Naranja",
-            "Violeta"        
+    private String[] ArrayFichas = { //Usamos este arreglo como parte del modelo de nuestro ComboBox
+            "Gris", // 1
+            "Blanca", // 2
+            "Azul", // 5
+            "Roja", // 10
+            "Verde", // 25
+            "Amarilla", //50
+            "Negra", //100
+            "Naranja", // 200
+            "Violeta" // 500       
         };
     
-   
+  
     public Transacciones() {
         initComponents();
          setSize(930,630);
@@ -52,7 +53,19 @@ public class Transacciones extends javax.swing.JFrame {
         label1_apellido = new javax.swing.JLabel();
         label1_dni = new javax.swing.JLabel();
         label1_saldo = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        label_currentBalance = new javax.swing.JLabel();
+        chipsComboBox = new javax.swing.JComboBox<>();
+        quantityTextField = new javax.swing.JTextField();
+        button_calculateChipValue = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
+        label_chipValue = new javax.swing.JLabel();
+        nonEditableField_chipTotalVlue1 = new javax.swing.JTextField();
+        nonEditableField_resultingBalance = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -69,37 +82,89 @@ public class Transacciones extends javax.swing.JFrame {
         label1_nombre.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         label1_nombre.setText("Nombre: ");
         jPanel1.add(label1_nombre);
-        label1_nombre.setBounds(20, 10, 180, 30);
+        label1_nombre.setBounds(20, 10, 330, 30);
 
         label1_apellido.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         label1_apellido.setText("Apellido:");
         jPanel1.add(label1_apellido);
-        label1_apellido.setBounds(20, 50, 180, 30);
+        label1_apellido.setBounds(20, 40, 340, 30);
 
         label1_dni.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         label1_dni.setText("DNI:");
         jPanel1.add(label1_dni);
-        label1_dni.setBounds(20, 90, 180, 30);
+        label1_dni.setBounds(20, 70, 340, 30);
 
         label1_saldo.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         label1_saldo.setText("Saldo:");
         jPanel1.add(label1_saldo);
-        label1_saldo.setBounds(20, 130, 180, 30);
+        label1_saldo.setBounds(20, 100, 340, 30);
 
         panel1.add(jPanel1);
-        jPanel1.setBounds(30, 20, 370, 260);
+        jPanel1.setBounds(20, 10, 370, 280);
+
+        jLabel2.setText("client test temp");
+        panel1.add(jLabel2);
+        jLabel2.setBounds(400, 20, 460, 30);
+
+        jLabel3.setText("Color de fichas a sumar");
+        panel1.add(jLabel3);
+        jLabel3.setBounds(410, 100, 170, 30);
+
+        jLabel4.setText("Cantidad");
+        panel1.add(jLabel4);
+        jLabel4.setBounds(490, 130, 60, 30);
+
+        jLabel5.setText("Balance actual total");
+        panel1.add(jLabel5);
+        jLabel5.setBounds(440, 70, 120, 20);
+
+        jLabel6.setText("Saldo total resultante");
+        panel1.add(jLabel6);
+        jLabel6.setBounds(420, 180, 130, 30);
+        panel1.add(label_currentBalance);
+        label_currentBalance.setBounds(580, 70, 210, 20);
+
+        chipsComboBox.setModel(new DefaultComboBoxModel(this.ArrayFichas));
+        panel1.add(chipsComboBox);
+        chipsComboBox.setBounds(570, 100, 120, 26);
+        panel1.add(quantityTextField);
+        quantityTextField.setBounds(570, 130, 50, 30);
+
+        button_calculateChipValue.setIcon(new javax.swing.ImageIcon(getClass().getResource("/main/classes/calculateValue.png"))); // NOI18N
+        button_calculateChipValue.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_calculateChipValueActionPerformed(evt);
+            }
+        });
+        panel1.add(button_calculateChipValue);
+        button_calculateChipValue.setBounds(630, 130, 30, 30);
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel2.setLayout(null);
+
+        label_chipValue.setText("Valor");
+        jPanel2.add(label_chipValue);
+        label_chipValue.setBounds(10, 0, 40, 30);
+
+        nonEditableField_chipTotalVlue1.setEditable(false);
+        jPanel2.add(nonEditableField_chipTotalVlue1);
+        nonEditableField_chipTotalVlue1.setBounds(50, 0, 80, 30);
+
+        panel1.add(jPanel2);
+        jPanel2.setBounds(670, 130, 140, 30);
+
+        nonEditableField_resultingBalance.setEditable(false);
+        panel1.add(nonEditableField_resultingBalance);
+        nonEditableField_resultingBalance.setBounds(570, 180, 80, 30);
 
         jTabbedPane1.addTab("Test-Fichas", panel1);
 
-        jPanel2.setLayout(null);
-        jTabbedPane1.addTab("Información", jPanel2);
-
         getContentPane().add(jTabbedPane1);
-        jTabbedPane1.setBounds(10, 260, 900, 330);
+        jTabbedPane1.setBounds(10, 260, 890, 350);
 
         jLabel1.setText("Seleccione el usuario correspondiente");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(10, 10, 290, 25);
+        jLabel1.setBounds(10, 10, 220, 25);
 
         jPanel3.setBackground(new java.awt.Color(102, 204, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "BD - ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 12), new java.awt.Color(255, 255, 255))); // NOI18N
@@ -142,6 +207,7 @@ public class Transacciones extends javax.swing.JFrame {
     private void transacciones_jtableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_transacciones_jtableMouseClicked
         // TODO add your handling code here:
             if (evt.getClickCount() == 2) {
+                
             int fila = this.transacciones_jtable.getSelectedRow();
             
             String nombre = this.transacciones_jtable.getValueAt(fila, 0).toString();
@@ -153,8 +219,36 @@ public class Transacciones extends javax.swing.JFrame {
             this.label1_apellido.setText("Apellido: " + apellido);
             this.label1_dni.setText("DNI: " + dni);
             this.label1_saldo.setText("Saldo: " + saldo);
+            
+            Cliente c = new Cliente(nombre,apellido,dni,saldo);
+            this.showClientInfo(c);
         }
+            
+            
     }//GEN-LAST:event_transacciones_jtableMouseClicked
+
+    private void button_calculateChipValueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_calculateChipValueActionPerformed
+       
+        
+        double chipsQuantity;
+        double result;
+        String resultToString;
+        String selectedChip =  (String) this.chipsComboBox.getSelectedItem().toString(); 
+        
+        chipsQuantity = Integer.parseInt(this.quantityTextField.getText()) ; //Revisar parseInt
+        
+        result = this.calculateChipValue(selectedChip, (int) chipsQuantity);  //valor de color de ficha y cantidad
+        resultToString = String.valueOf(result);
+        this.nonEditableField_chipTotalVlue1.setText(resultToString); //Mostramos el valor total de la cantidad y color de fichas
+        
+        String labelBalance = this.label_currentBalance.getText();
+        double balanceAsDouble = Double.parseDouble(labelBalance);
+      
+       double lastBalance =  this.calculateResultingBalance(result,balanceAsDouble );
+       String lastStringBalance = String.valueOf(lastBalance);
+       
+       this.nonEditableField_resultingBalance.setText(lastStringBalance);
+    }//GEN-LAST:event_button_calculateChipValueActionPerformed
 
     /**
      * @param args the command line arguments
@@ -192,7 +286,14 @@ public class Transacciones extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton button_calculateChipValue;
+    private javax.swing.JComboBox<String> chipsComboBox;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -202,23 +303,24 @@ public class Transacciones extends javax.swing.JFrame {
     private javax.swing.JLabel label1_dni;
     private javax.swing.JLabel label1_nombre;
     private javax.swing.JLabel label1_saldo;
+    private javax.swing.JLabel label_chipValue;
+    private javax.swing.JLabel label_currentBalance;
+    private javax.swing.JTextField nonEditableField_chipTotalVlue1;
+    private javax.swing.JTextField nonEditableField_resultingBalance;
     private javax.swing.JPanel panel1;
+    private javax.swing.JTextField quantityTextField;
     private javax.swing.JTable transacciones_jtable;
     // End of variables declaration//GEN-END:variables
 
     private void initTable(){
         this.transactionsTableModel = new DefaultTableModel(this.tableArray,0){
-            
-            
+                        
             @Override
             public boolean isCellEditable(int row, int column){
                 return false;
-            }
-            
-            
+            }            
          };
         this.transacciones_jtable.setModel(transactionsTableModel);
-            
        
     }
     
@@ -227,10 +329,8 @@ public class Transacciones extends javax.swing.JFrame {
         List<String[]> clientes = daodb.listarTodo();
          for(String[] data: clientes ) {
              this.transactionsTableModel.addRow(data);
-         }
-             
+         }         
  }
- 
     
      private void clearTable() {
         this.transactionsTableModel.setRowCount(0);
@@ -241,14 +341,78 @@ public class Transacciones extends javax.swing.JFrame {
         this.label1_nombre.setText("Nombre: ");
         this.label1_apellido.setText("Apellido: ");
         this.label1_dni.setText("DNI: ");
-        this.label1_saldo.setText("Saldo: ");
-        
+        this.label1_saldo.setText("Saldo: ");      
     }
     
+    private void showClientInfo(Cliente client) {
+        double balanceToDouble;
+        double balanceSum;
+        String sumText;
+        
+        this.jLabel2.setText("Cliente actual seleccionado: " + client.getNombre() + ", " + client.getApellido() + ", " + client.getDni() + ", " + client.getSaldo());
+        
+        this.label_currentBalance.setText(client.getSaldo());
+
+        
+        balanceToDouble = Double.parseDouble(client.getSaldo());
+        balanceSum = balanceToDouble; //Test para probar
+        sumText = String.valueOf(balanceSum);
+        
+        this.label_currentBalance.setText( client.getSaldo());     
+    }
     
+  
+    private double calculateChipValue(String color, int cant) {
+        double calculo = 0;
+        
+        switch(color){
+            case ("Gris"):
+                calculo = (1 * cant);
+                return calculo;
+            
+            case ("Blanca"):
+                calculo = (2 * cant);
+                return calculo;
+                
+            case ("Azul"):
+                calculo = (5 * cant);
+                return calculo;
+                     
+            case ("Roja"):
+                calculo = (10 * cant);
+                return calculo;
+                     
+            case ("Verde"):
+                calculo = (25 * cant);
+                return calculo;
+                     
+            case ("Amarilla"):
+                calculo = (50 * cant);
+                return calculo;
+                     
+            case ("Negra"):
+                calculo = (100 * cant);
+                return calculo;
+                     
+            case ("Naranja"):
+                calculo = (200 * cant);
+                return calculo;
+                
+            case ("Violeta"):
+                calculo = (500 * cant);
+                return calculo;
+                
+            default:
+                System.out.println("Seleccione una ficha especifica para calcular");
+                return calculo;       
+        }       
+    }
     
-    
-    
+    private double calculateResultingBalance(double valorTotalFichas, double saldoActual) {
+        double resultadoFinal = 0;     
+        resultadoFinal = saldoActual + valorTotalFichas;       
+        return resultadoFinal;
+    }
     
 }
     

@@ -1,6 +1,8 @@
 package credits;
-
 import java.util.Objects;
+
+//Clase sin uso por el momento
+//El funcionamiento y uso de la clase ficha esta simulado en la logica de la ventana Transacciones.
 
 public class Ficha {
     
@@ -11,9 +13,8 @@ public class Ficha {
     public Ficha( String color, double val ) { //Constructor
         this.colorDenom = color;
         this.valor = val;
-        
-    }
-    
+       
+    } 
     
     public String getColorDenomination(){
         return this.colorDenom;
@@ -23,9 +24,7 @@ public class Ficha {
         return this.valor;
     }
 
-    //
-    
-
+ 
     public void setValor(double valor) {
         this.valor = valor;
     }
@@ -44,6 +43,7 @@ public class Ficha {
         return hash;
     }
 
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

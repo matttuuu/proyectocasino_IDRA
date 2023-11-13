@@ -7,13 +7,9 @@ import java.util.List;
 import tools.DateSaver;
 
 
-
-
 public class ClienteWindow2 extends javax.swing.JFrame {
 
     private DefaultTableModel ModelAdd;
-    private DefaultTableModel ModelShow;
-    
     
     private String [] tableArray = {"Nombre","Apellido","DNI","Saldo"};
     
@@ -21,9 +17,7 @@ public class ClienteWindow2 extends javax.swing.JFrame {
     
     private DAOClientes daodb = new DAOClientes();
 
-    
-   
-    
+
     /**
      * Creates new form ClienteWindow2
      */
@@ -31,9 +25,7 @@ public class ClienteWindow2 extends javax.swing.JFrame {
         initComponents();
         setSize(825,600);
         initTable();
-        refreshTable();
-        
-        
+        refreshTable();  
     }
 
     @SuppressWarnings("unchecked")
@@ -47,7 +39,6 @@ public class ClienteWindow2 extends javax.swing.JFrame {
         saldoTextField = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         buttonAgregar = new javax.swing.JButton();
-        buttonEditar = new javax.swing.JButton();
         buttonEliminar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -124,16 +115,6 @@ public class ClienteWindow2 extends javax.swing.JFrame {
         });
         jPanel1.add(buttonAgregar);
         buttonAgregar.setBounds(190, 140, 200, 40);
-
-        buttonEditar.setText("Editar");
-        buttonEditar.setToolTipText("Haga doble click sobre una fila de la tabla para llenar los campos. \nActo seguido pulse este botón para modificar y guardar los cambios realizados");
-        buttonEditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonEditarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(buttonEditar);
-        buttonEditar.setBounds(630, 60, 80, 40);
 
         buttonEliminar.setText("Eliminar");
         buttonEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -212,11 +193,7 @@ public class ClienteWindow2 extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    
-    
-    
-    //conexion y nombre de la db (temporalmente): jdbc:mysql://localhost:3306/test?zeroDateTimeBehavior=CONVERT_TO_NULL", "root","" / Casino_testdb
+
     
     private void saldoTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saldoTextFieldActionPerformed
         // TODO add your handling code here:
@@ -229,20 +206,14 @@ public class ClienteWindow2 extends javax.swing.JFrame {
         String dni = this.dniTextField.getText();
         String saldo = this.saldoTextField.getText();
         
-        //7-11-23
-        //La funcionalidad de guardar deberia ser mas parecido a lo siguiente
-        
-       //Cuando se presiona el boton guardar, directamente se envia la informacion obtenida en los campos, hacia la db
-       //Acto seguido, se refresca la db
-        
-        
+       
         
         
         Cliente newClient = new Cliente(nom,ap,dni,saldo); //Creamos una nueva instancia de cliente
         
         this.daodb.Save(newClient);
         
-        //ModelAdd.addRow(newClient.toArray()); //Usamos el metodo para agregar una fila del del tableModel
+        
         
         this.nombreTextField.setText(""); //Limpiamos los campos cuando teminamos de guardar 
         this.apellidoTextField.setText("");
@@ -280,7 +251,7 @@ public class ClienteWindow2 extends javax.swing.JFrame {
     }//GEN-LAST:event_nombreTextFieldKeyTyped
 
     private void apellidoTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_apellidoTextFieldKeyTyped
-        // TODO add your handling code here:
+       
            int key = evt.getKeyChar();
         boolean upper = key >= 65 && key <= 90;
         boolean lower = key >= 97 && key <= 122;
@@ -292,7 +263,7 @@ public class ClienteWindow2 extends javax.swing.JFrame {
     }//GEN-LAST:event_apellidoTextFieldKeyTyped
 
     private void dniTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dniTextFieldKeyTyped
-        // TODO add your handling code here:
+        
         //Solo permitimos numeros 
         int key = evt.getKeyChar();
         boolean numbers = key >= 48 && key <58;
@@ -312,12 +283,6 @@ public class ClienteWindow2 extends javax.swing.JFrame {
     }//GEN-LAST:event_saldoTextFieldKeyTyped
 
     private void buttonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEliminarActionPerformed
-     
-      //this.refreshTable();    // Antes usabamos este boton para checkear que funcione el refresh
-                                            // Ahora que anda, poodemos usarlo para testear eliminar directamente de la db
-                                            // Traemos los campos a la tabla, y de ahi borramos (deberiamos checkear antes que sea ese campo el que queramos borrar)
-                                            // Como algunos campos se pueden repetir, deberiamos hacer que coincida la info de los 4 textfields con los campos de la db,
-                                            // Antes de borrar
                                             
         String nom = this.nombreTextField.getText(); //Tomamos el texto que este en nuestros campos
         String ap = this.apellidoTextField.getText();
@@ -331,23 +296,6 @@ public class ClienteWindow2 extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonEliminarActionPerformed
 
     
-    private void buttonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditarActionPerformed
-       
-        if (this.clientes_jtable.getSelectedRowCount() != 1)  {
-            return;
-        }
-        
-        String nom = this.nombreTextField.getText(); 
-        String ap = this.apellidoTextField.getText();
-        String dni = this.dniTextField.getText();
-        String saldo = this.saldoTextField.getText();
-          
-        Cliente c = new Cliente(nom,ap,dni,saldo);
-        this.daodb.Edit(c);
-        this.refreshTable();       
-        
-    }//GEN-LAST:event_buttonEditarActionPerformed
-
     private void clientes_jtableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clientes_jtableMouseClicked
         if (evt.getClickCount() == 2) {
             int fila = this.clientes_jtable.getSelectedRow();
@@ -361,8 +309,7 @@ public class ClienteWindow2 extends javax.swing.JFrame {
             this.apellidoTextField.setText(apellido);
             this.dniTextField.setText(dni);
             this.saldoTextField.setText(saldo);
-        }
-        
+        }        
     }//GEN-LAST:event_clientes_jtableMouseClicked
 
     private void cleanFieldsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cleanFieldsButtonActionPerformed
@@ -372,12 +319,7 @@ public class ClienteWindow2 extends javax.swing.JFrame {
        this.saldoTextField.setText("");
     }//GEN-LAST:event_cleanFieldsButtonActionPerformed
 
-   
-    
-    
-    
-    
-    
+  
     /**
      * @param args the command line arguments
      */
@@ -416,7 +358,6 @@ public class ClienteWindow2 extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField apellidoTextField;
     private javax.swing.JButton buttonAgregar;
-    private javax.swing.JButton buttonEditar;
     private javax.swing.JButton buttonEliminar;
     private javax.swing.JButton cleanFieldsButton;
     private javax.swing.JTable clientes_jtable;
@@ -440,9 +381,7 @@ public class ClienteWindow2 extends javax.swing.JFrame {
            }
        };
        clientes_jtable.setModel(ModelAdd);
-       
-       
-      
+     
     }
 
     private void refreshTable() { //
@@ -452,42 +391,8 @@ public class ClienteWindow2 extends javax.swing.JFrame {
         List<String[]> clientes = daodb.listarTodo();
         for(String[] data: clientes ){
              this.ModelAdd.addRow(data);
-             
-             
-            //this.ModelAdd.addRow ( { data.getNombre(), data.getApellido(), data.getSaldo(), data.getJugadas().count() } );
-             
-        }
-        //this.clearTable();
-       
-        
-        /*
-       try {
-           Class.forName("com.mysql.cj.jdbc.Driver");
            
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/casinodb?zeroDateTimeBehavior=CONVERT_TO_NULL","root","");
-            Statement st = con.createStatement();
-            
-            String query = "select * from customers";
-            ResultSet rs = st.executeQuery(query);
-            
-            while(rs.next()){
-                String name = rs.getString("firstName");
-                String lastname = rs.getString("lastName");
-                String idDni = String.valueOf(rs.getString("dni"));
-                String balance = String.valueOf(rs.getString("balance"));
-                
-                String data[] = {name,lastname,idDni,balance};
-                this.ModelAdd.addRow(data);
-                
-                
-            }
-            //Importante: cerrar con con.close();
-            con.close();
-       }
-       catch(Exception e) {
-           System.out.println(e.getMessage());
-       } 
-        */
+        }     
     }
     
     private void clearTable() {
