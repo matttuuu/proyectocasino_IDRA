@@ -293,6 +293,8 @@ public class ClienteWindow2 extends javax.swing.JFrame {
         
         this.daodb.Delete(c);
         this.refreshTable();
+        this.clearFields();
+        
     }//GEN-LAST:event_buttonEliminarActionPerformed
 
     
@@ -313,10 +315,7 @@ public class ClienteWindow2 extends javax.swing.JFrame {
     }//GEN-LAST:event_clientes_jtableMouseClicked
 
     private void cleanFieldsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cleanFieldsButtonActionPerformed
-       this.nombreTextField.setText("");
-       this.apellidoTextField.setText("");
-       this.dniTextField.setText("");
-       this.saldoTextField.setText("");
+      this.clearFields();
     }//GEN-LAST:event_cleanFieldsButtonActionPerformed
 
   
@@ -400,7 +399,12 @@ public class ClienteWindow2 extends javax.swing.JFrame {
     }
     
     
-        
+    private void clearFields(){
+         this.nombreTextField.setText("");
+       this.apellidoTextField.setText("");
+       this.dniTextField.setText("");
+       this.saldoTextField.setText("");
+    }
         
         
     
